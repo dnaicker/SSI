@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Self-Sovereign Identity - Provider</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <!-- Meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/js/bootstrap.bundle.min.js" integrity="sha512-mULnawDVcCnsk9a4aG1QLZZ6rcce/jSzEGqUkeOLy0b6q0+T6syHrxlsAGH7ZVoqC93Pd0lBqd6WguPWih7VHA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/fontawesome.min.js" integrity="sha512-PoFg70xtc+rAkD9xsjaZwIMkhkgbl1TkoaRrgucfsct7SVy9KvTj5LtECit+ZjQ3ts+7xWzgfHOGzdolfWEgrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.19.1/bootstrap-table.min.js" integrity="sha512-SoNdA/8QMSSlEcJAXKdAALavPMfGJnoh/96Tosg3qxQhdktSAttyHT7ePJghxJNvLCeyJYtXcdrTgLvHHsbRcQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="js/provider.js"></script>
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/css/bootstrap.min.css" integrity="sha512-T584yQ/tdRR5QwOpfvDfVQUidzfgc2339Lc8uBDtcp/wYu80d7jwBgAxbyMh0a9YM9F8N3tdErpFI8iaGx6x5g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="./style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.19.1/bootstrap-table.min.css" integrity="sha512-Ulm5pOx2O8n6XDa0CY2S+GfOmV2R2SrvCpVmhjsxi4VmvcqB5JM5POLuePq496f9CkeAtvPpJlcjLRcTPk79iw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav id="navbar" class="navbar navbar-expand-md navbar-dark fixed-top">
+    <a class="navbar-brand" href="#"><i class="fa-solid fa-circle-user" style="padding-right: 10px"></i>Self-Sovereign Identity</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link " href="/wallet.html"><i class="fa-solid fa-wallet" style="padding-right: 5px"></i>Wallet</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/credential.html"><i class="fa-solid fa-address-card" style="padding-right: 5px;"></i>Credential</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="/provider.html"><i class="fa-solid fa-landmark" style="padding-right: 5px"></i>Provider</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <main role="main" class="container">
+    <div class="starter-template">
+      <div class="row">
+        <div class="col-sm form-style">
+          <h3 class="header-style"><i class="fa-solid fa-landmark" style="color: #FCB1A6; padding-right: 15px"></i>New Organisation</h3>
+          <form id="createOrganisationForm" novalidate>
+            <div class="form-group">
+              <label>Organisation Name</label>
+              <input class="form-control" id="organisationName" placeholder="Name" required />
+              <div class="invalid-feedback">
+                Organisation name required.
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-group">
+                <label for="network">Network</label>
+                <select id="network" class="form-control">
+                  <option selected>Sovrin Staging</option>
+                  <option>Sovrin Builder</option>
+                  <option>BCovrin Test</option>
+                </select>
+              </div>
+            </div>
+            <button type="submit" id="createOrganisation" class="btn btn-primary"><i class="fa-solid fa-check" style="padding-right: 10px"></i>Create</button>
+          </form>
+          <div class="centered-spinner d-flex justify-content-center">
+            <div id="organisationCreateSpinner" class="spinner-border centered-spinner" role="status">
+              <span class="sr-only centered-spinner">Loading...</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm form-style">
+          <h3 class="header-style"><i class="fa-solid fa-list" style="color: #FCB1A6; padding-right: 15px"></i>List Organisations</h3>
+          <div class="centered-spinner d-flex justify-content-center">
+            <div id="spinner" class="spinner-border centered-spinner" role="status">
+              <span class="sr-only centered-spinner">Loading...</span>
+            </div>
+          </div>
+          <table id="table" data-id-field="organisationId" class="table table-borderless tableStyle"></table>
+        </div>
+      </div>
+  </main>
+  <!-- Modal: Server response-->
+  <div id="myModal" class="modal" tabindex="-1">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-body">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <!-- todo: show icon for success or error -->
+          <h3 id="modalHeaderTitle"></h3>
+          <p id="modalHeaderBody"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

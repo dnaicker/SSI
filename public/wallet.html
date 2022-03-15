@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Self-Sovereign Identity - Wallet</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <!-- Meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/js/bootstrap.bundle.min.js" integrity="sha512-mULnawDVcCnsk9a4aG1QLZZ6rcce/jSzEGqUkeOLy0b6q0+T6syHrxlsAGH7ZVoqC93Pd0lBqd6WguPWih7VHA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/fontawesome.min.js" integrity="sha512-PoFg70xtc+rAkD9xsjaZwIMkhkgbl1TkoaRrgucfsct7SVy9KvTj5LtECit+ZjQ3ts+7xWzgfHOGzdolfWEgrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.19.1/bootstrap-table.min.js" integrity="sha512-SoNdA/8QMSSlEcJAXKdAALavPMfGJnoh/96Tosg3qxQhdktSAttyHT7ePJghxJNvLCeyJYtXcdrTgLvHHsbRcQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/css/bootstrap.min.css" integrity="sha512-T584yQ/tdRR5QwOpfvDfVQUidzfgc2339Lc8uBDtcp/wYu80d7jwBgAxbyMh0a9YM9F8N3tdErpFI8iaGx6x5g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="./style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.19.1/bootstrap-table.min.css" integrity="sha512-Ulm5pOx2O8n6XDa0CY2S+GfOmV2R2SrvCpVmhjsxi4VmvcqB5JM5POLuePq496f9CkeAtvPpJlcjLRcTPk79iw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav id="navbar" class="navbar navbar-expand-md navbar-dark fixed-top">
+    <a class="navbar-brand" href="#"><i class="fa-solid fa-circle-user" style="padding-right: 10px"></i>Self-Sovereign Identity</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link active" href="/wallet.html"><i class="fa-solid fa-wallet" style="padding-right: 5px"></i>Wallet</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/credential.html"><i class="fa-solid fa-address-card" style="padding-right: 5px;"></i>Credential</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/provider.html"><i class="fa-solid fa-landmark" style="padding-right: 5px"></i>Provider</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <main role="main" class="container">
+    <div class="starter-template">
+      <div class="row">
+        <!-- Wallet Form: Create new wallet -->
+        <div class="col-sm form-style">
+          <h3 class="header-style"><i class="fa-solid fa-wallet" style="color: #FCB1A6; padding-right: 15px"></i>Create New Wallet</h3>
+          <form id="walletCreationForm" novalidate>
+            <div class="form-group">
+              <label>Wallet Owner</label>
+              <input id="walletName" class="form-control" placeholder="Name" required />
+              <div class="invalid-feedback">
+                Wallet owner name required.
+              </div>
+            </div>
+            <button id="create-wallet" type="submit" class="btn btn-primary"><i class="fa-solid fa-check" style="padding-right: 10px"></i>Create</button>
+          </form>
+          <!-- show spinner -->
+          <div class="centered-spinner d-flex justify-content-center">
+            <div id="walletCreateSpinner" class="spinner-border centered-spinner" role="status">
+              <span class="sr-only centered-spinner">Loading...</span>
+            </div>
+          </div>
+        </div>
+        <!-- Credential Form: Accept new credential -->
+        <div class="col-sm form-style">
+          <h3 class="header-style"><i class="fa-solid fa-envelope" style="color: #FCB1A6; padding-right: 15px"></i>Accept Connection</h3>
+          <form id="acceptConnectionForm" novalidate>
+            <div class="form-group">
+              <label>Wallet ID</label>
+              <input id="connectionWalletId" class="form-control" placeholder="Required" required />
+              <div class="invalid-feedback">
+                Wallet owner Id required.
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Connection Invitation URL</label>
+              <input class="form-control" id="connectionInvitationUrl" placeholder="Required" required />
+              <div class="invalid-feedback">
+                Connection invitation required.
+              </div>
+            </div>
+            <div class="form-group">
+              <button id="accept-connection-invitation" type="submit" class="btn btn-primary"><i class="fa-solid fa-check" style="padding-right: 10px"></i>Connect</button>
+            </div>
+          </form>
+          <!-- show spinner -->
+          <div class="centered-spinner d-flex justify-content-center">
+            <div id="acceptConnectionSpinner" class="spinner-border centered-spinner" role="status">
+              <span class="sr-only centered-spinner">Loading...</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm form-style">
+          <h3 class="header-style"><i class="fa-solid fa-list-check" style="color: #FCB1A6; padding-right: 15px"></i>Accept Credential</h3>
+          <form id="acceptCredentialForm" novalidate>
+            <div class="form-group">
+              <label>Wallet ID</label>
+              <input class="form-control" id="credentialWalletId" placeholder="Required" required />
+              <div class="invalid-feedback">
+                Wallet ID required.
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Credential Offer URL</label>
+              <input id="credentialOfferUrl" class="form-control" placeholder="Required" required />
+              <div class="invalid-feedback">
+                Credential offer url required.
+              </div>
+            </div>
+            <button id="accept-credential" type="submit" class="btn btn-primary"><i class="fa-solid fa-check" style="padding-right: 10px"></i> Register</button>
+          </form>
+          <!-- show spinner -->
+          <div class="centered-spinner d-flex justify-content-center">
+            <div id="credentialAcceptSpinner" class="spinner-border centered-spinner" role="status">
+              <span class="sr-only centered-spinner">Loading...</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Wallet List: Display all wallets for provider key -->
+      <div class="row">
+        <div class="col-sm form-style">
+          <h3 class="header-style"><i class="fa-solid fa-wallet" style="color: #FCB1A6; padding-right: 15px"></i>Your Wallets</h3>
+          <div class="centered-spinner d-flex justify-content-center">
+            <div id="spinner" class="spinner-border centered-spinner" role="status">
+              <span class="sr-only centered-spinner">Loading...</span>
+            </div>
+          </div>
+          <table id="table" data-id-field="walletId" class="table table-borderless tableStyle"></table>
+        </div>
+      </div>
+  </main>
+  <!-- Modal: Wallet Detail View -->
+  <div id="myModal" class="modal" tabindex="-1">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-body">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h3>Credentials</h3>
+          <!-- show spinner -->
+          <div class="centered-spinner d-flex justify-content-center">
+            <div id="spinnerModal" class="spinner-border centered-spinner" role="status">
+              <span class="sr-only centered-spinner">Loading...</span>
+            </div>
+          </div>
+          <!-- display credentials in table -->
+          <table id="walletTable" data-id-field="walletId" class="table table-borderless tableStyle"></table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal: verifications modal -->
+  <div id="verificationsModal" class="modal" tabindex="-1">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-body">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h3>Verifications Requested</h3>
+          <!-- show spinner -->
+          <div class="centered-spinner d-flex justify-content-center">
+            <div id="verificationsSpinnerModal" class="spinner-border centered-spinner" role="status">
+              <div class="sr-only centered-spinner">Loading...</div>
+            </div>
+          </div>
+          <!-- display credentials in table -->
+          <table id="connectionsTable" data-id-field="connectionId" class="table table-borderless tableStyle"></table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal: Credential Issued -->
+  <div id="credentialIssuedModal" class="modal" tabindex="-1">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-body">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h3 id="credential-issued-title"></h3>
+          <span id="credential-issued"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal: Wallet Created -->
+  <div id="walletCreatedModal" class="modal" tabindex="-1">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-body">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h3>Success</h3>
+          <span id="wallet-created"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal: Wallet Created -->
+  <div id="walletDeleteModal" class="modal" tabindex="-1">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-body">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h3>Deleted</h3>
+          <span id="wallet-deleted"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal: Wallet Created -->
+  <div id="genericModal" class="modal" tabindex="-1">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-body">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h3 id="genericModalHeader"></h3>
+          <div id="genericModalBody"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="js/wallet.js"></script>
+</body>
+
+</html>

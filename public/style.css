@@ -1,0 +1,101 @@
+:root {
+  --primary-color: #006BE5;
+}
+
+.icon-color: {
+  color: #FFDCCC !important;
+  padding-right: 15px;
+}
+
+body {
+	padding-top: 5rem;
+}
+.starter-template {
+	padding: 1rem 1.5rem;
+}
+
+.header-style {
+	padding-bottom: 20px;
+}
+
+.form-style {
+	margin: 30px;
+	padding: 50px;
+	box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+
+#verification-accepted {
+  display: none;
+}
+
+#navbar {
+  background-color: var(--primary-color);
+}
+
+.nav-element {
+  color: white;
+}
+
+
+/* The Modal */
+#modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  text-align: center;
+  
+}
+
+/* Modal Content */
+#modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+}
+
+/* The Modal Close Button */
+#close-button {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+#close-button:hover,
+#close-button:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#spinner {
+  text-align: center;
+}
+
+#qrcode {
+  display: none;
+}
+
+.centered-spinner {
+  align-content: center;
+  text-align: center;
+}
+
+#verification-accepted {
+  display: none;
+}
+
+
+.tableStyle {
+  border-right: none; 
+  border-left: none; 
+  border-bottom: none;
+}
