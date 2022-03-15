@@ -19,6 +19,10 @@ https://user-images.githubusercontent.com/7840952/158397633-06077373-23e5-4f6c-a
 
 # Requirements
 1. Installation of Nodejs version 12: https://github.com/nvm-sh/nvm
+2. Create .env file in root folder of project directory
+3. Generate an access token from by creating user account on Trinsic Studio https://studio.trinsic.id/SignUp and creating a new Provider Organisation https://docs.trinsic.id/docs
+4. Insert a line in .env file located in root directory of project folder: "ACCESSTOK="  
+6. Insert Access Token or Provider API Key provided by Trinsic
 
 # Setup 
 
