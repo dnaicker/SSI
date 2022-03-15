@@ -13,9 +13,16 @@ Some of the operations included in the dashboard are:
 8. View verifications on wallet owner side - accept verification
 9. Test using mobile scanning code and showing list of wallets
 
-# Requirements
-Installation of Nodejs version 12: https://github.com/nvm-sh/nvm
 
-# Setup - from terminal/command line root directory of this project folder
+https://user-images.githubusercontent.com/7840952/158397633-06077373-23e5-4f6c-a5e4-1459e9a3356d.mp4
+
+
+# Requirements
+1. Installation of Nodejs version 12: https://github.com/nvm-sh/nvm
+
+# Setup 
+
+From terminal/command line root directory of this project folder:
+
 1. npm install 
 2. npm run start
