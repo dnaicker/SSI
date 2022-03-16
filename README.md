@@ -1,6 +1,6 @@
 # SSI - Self Sovereign Identity Application
 
-A web application dashbboard utilising Trinsic APIS to faciliate interactions with Hyperledger Indy using Hyperledger Aries
+A web application dashboard utilising Trinsic APIS to faciliate interactions with Hyperledger Indy using Hyperledger Aries
 
 Some of the operations included in the dashboard are:
 1. Create wallet
