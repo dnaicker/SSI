@@ -1,6 +1,8 @@
 var express = require("express");
 var mongoose = require("mongoose");
-const port = 80;
+require('dotenv').config()
+const port = process.env.PORT;
+console.log(port)
 const app = express();
 const {
 	CredentialsServiceClient,
@@ -10,11 +12,9 @@ const {
 	ProviderCredentials
 } = require("@trinsic/service-clients");
 
-// the credential definition and policy id is on a different api key organisation, so might need to be updated
-const apiKey = "UJFgZPUcoBuAbtwKTjaIWUXgCNZTrFV29j-ejYSc5Ws";
-const CRED_DEF_ID = "5TUNXBbn1pW79GDujbchdK:3:CL:278230:Default";
-const POLICY_ID = "129b779a-c5af-44a5-0999-08d9dc1ce5e9";
-const PROVIDER_TOKEN = "r44O1oxWkI3pkcUlIcIsH1uuCQdo8KmXMQ9OpGzqNww";
+const CRED_DEF_ID = process.env.CRED_DEF_ID; 
+const POLICY_ID = process.env.POLICY_ID; 
+const PROVIDER_TOKEN = process.env.PROVIDER_TOKEN; 
 const request = require('request')
 
 // Credentials API
@@ -134,7 +134,7 @@ app.post("/deleteVerification", async (req, res) => {
 
 		console.log("deleteVerification processed successfully", verification)
 		return res.status(200).send({
-			message: "createVerification processed successfully",
+			message: "deleteVerification processed successfully",
 			result: verification
 		});
 	} catch (error) {
