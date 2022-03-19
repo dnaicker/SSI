@@ -21,8 +21,8 @@ https://user-images.githubusercontent.com/7840952/158397633-06077373-23e5-4f6c-a
 1. Installation 
 of Nodejs version 12: https://github.com/nvm-sh/nvm
 2. Generate an access token from by creating user account on Trinsic Studio https://studio.trinsic.id/SignUp and creating a new Provider Organisation https://docs.trinsic.id/docs <img width="1889" alt="image" src="https://user-images.githubusercontent.com/7840952/158523701-723ea1fc-5db5-4680-8a66-f0031201c73d.png">
-3. Rename file .env-template to .env and insert API Token value for ACCESSTOK
-4. _Optional_: but maybe neccessary if credential id or policy id not found under Provider API key domain. Create a credential and verification policy and place those ids in the .env file under CRED_DEF_ID and POLICY_ID
+3. Rename file .env-template to .env and insert API Token value into PROVIDER_TOKEN
+4. _Optional_: but maybe neccessary if credential id or policy id not found under Provider API key domain. Create a credential and verification policy through Trinsic Studio containing attribute _name_ and _email_ and place those ids in the .env file under CRED_DEF_ID and POLICY_ID
 
 # Setup 
 
